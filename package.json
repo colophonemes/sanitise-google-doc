@@ -1,0 +1,20 @@
+{
+  "name": "sanitise-google-doc",
+  "version": "0.1.0",
+  "description": "Sanitises messy HTML input using sanitize-html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Deere / colophonemes",
+  "license": "ISC",
+  "preferGlobal": true,
+  "bin": {
+    "sanitizehtml": "index.js"
+  },
+  "dependencies": {
+    "sanitize-html": "^1.6.1",
+    "pretty": "^1.0.0",
+    "cheerio": "^0.19.0",
+    "ncp": "^2.0.0"
+  }
+}

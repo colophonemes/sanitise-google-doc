@@ -6,8 +6,10 @@ var path = require('path');
 
 
 
-var sanitise = function(inputHTML,imagesPath){
-	imagesPath = imagesPath ? imagesPath : 'images';
+var sanitise = function(inputHTML,options){
+	var imagesPath = options.imagesPath ? options.imagesPath : 'images';
+	var addTableHeaders = options.addTableHeaders ? options.addTableHeaders : false;
+
 	// sanitise the HTML
 	allowedAttributes = sanitizeHTML.defaults.allowedAttributes
 	allowedAttributes.div = ['id','style','class'];
@@ -70,6 +72,16 @@ var sanitise = function(inputHTML,imagesPath){
 	$$('tr p').replaceWith(function () {
 		return $$(this).contents();
 	});
+	// add table headers
+	if(addTableHeaders){
+		$$('table').each(function(){
+			// add thead tag
+			$$(this).prepend('<thead></thead>')
+			$$(this).find('thead').append($$(this).find("tr").eq(0));
+			// add 'row-header' class to first td in every row
+			$$('td:first-child',this).addClass('row-header');
+		})	
+	}
 	// add 'even' and 'odd' tags to table rows
 	$$('tr').each(function(index){
 		if(index % 2 == 1){

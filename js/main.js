@@ -120,18 +120,25 @@
 
 $(document).ready(function(){
 	// init
-	if($.cookie('imagesPath')){
-		$('#imagesPath').val($.cookie('imagesPath'));
-	}
+	optionNames = ['imagesPath','addTableHeaders'];
+	$.each(optionNames,function(index,optionName){
+		if($.cookie(optionName)){
+			$('#'+optionName).val($.cookie(optionName));
+		}
+	});
 	// click handler to sanitise text
 	$("#sanitise").click(function(event){
 		event.preventDefault();
 		var html = $('#input').val();
-		var imagesPath = $('#imagesPath').val();
-	 	html = sanitise(html,imagesPath);
+
+		var options = {};
+		$.each(optionNames, function(index,optionName) {
+			el = $('#'+optionName);
+			options[optionName] = el.attr('type')==='checkbox' ? el.is(':checked') : el.val();
+		 	$.cookie(optionName, options[optionName], { expires: 7, path: '/' });
+		});
+	 	html = sanitise(html,options);
 
 	 	$('#output').val(html);
-
-	 	$.cookie('imagesPath', imagesPath, { expires: 7, path: '/' });
 	});
 });

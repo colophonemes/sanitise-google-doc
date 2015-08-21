@@ -125,7 +125,7 @@
 function initPicker() {
   var picker = new FilePicker({
     apiKey: 'AIzaSyCBKDUhBuEKVvZ4xjJknT4gBIn4bB0F_uc',
-    clientId: '468292153625-kkfcqnjc6phj3j4u07n2fdislhdth327',
+    clientId: '468292153625-kkfcqnjc6phj3j4u07n2fdislhdth327.apps.googleusercontent.com',
     buttonEl: document.getElementById('openGAPicker'),
     onSelect: function(file) {
       console.log(file);

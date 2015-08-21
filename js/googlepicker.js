@@ -49,13 +49,13 @@
      */
     _showPicker: function() {
       var accessToken = gapi.auth.getToken().access_token;
-      var view = new google.picker.DocsView();
+      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS).setMimeTypes("application/vnd.google-apps.document");
       view.setIncludeFolders(true);
       this.picker = new google.picker.PickerBuilder()
         .enableFeature(google.picker.Feature.NAV_HIDDEN)
         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
         .setAppId(this.clientId)
-        // .setDeveloperKey(this.apiKey)
+        .setDeveloperKey(this.apiKey)
         .setOAuthToken(accessToken)
         .addView(view)
         .setCallback(this._pickerCallback.bind(this))
@@ -125,7 +125,7 @@
 function initPicker() {
   var picker = new FilePicker({
     apiKey: 'AIzaSyCBKDUhBuEKVvZ4xjJknT4gBIn4bB0F_uc',
-    clientId: '468292153625-kkfcqnjc6phj3j4u07n2fdislhdth327.apps.googleusercontent.com',
+    clientId: '468292153625-kkfcqnjc6phj3j4u07n2fdislhdth327',
     buttonEl: document.getElementById('openGAPicker'),
     onSelect: function(file) {
       console.log(file);

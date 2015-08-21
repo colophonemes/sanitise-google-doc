@@ -15,6 +15,7 @@
     "browserify": "^11.0.1",
     "cheerio": "^0.19.0",
     "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
     "ncp": "^2.0.0",
     "pretty": "^1.0.0",
     "sanitize-html": "^1.6.1",

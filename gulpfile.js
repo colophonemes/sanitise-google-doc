@@ -6,7 +6,7 @@ var rename = require("gulp-rename");
 
 // browserify build chain
 gulp.task('browserify', function () {
-  gulp.src('./app.js')
+  gulp.src('./browser.js')
   .pipe(through2.obj(function (file, enc, next){
             browserify(file.path)
                 .bundle(function(err, res){
@@ -15,5 +15,6 @@ gulp.task('browserify', function () {
                     next(null, file);
                 });
         }))
+  .pipe(rename('app.js'))
   .pipe(gulp.dest('./js'));
 });

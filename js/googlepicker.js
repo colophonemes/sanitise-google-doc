@@ -55,7 +55,7 @@
         .enableFeature(google.picker.Feature.NAV_HIDDEN)
         .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
         .setAppId(this.clientId)
-        .setDeveloperKey(this.apiKey)
+        // .setDeveloperKey(this.apiKey)
         .setOAuthToken(accessToken)
         .addView(view)
         .setCallback(this._pickerCallback.bind(this))

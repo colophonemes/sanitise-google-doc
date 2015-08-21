@@ -2,6 +2,7 @@
 var sanitizeHTML = require('sanitize-html');
 var pretty = require('pretty');
 var cheerio = require('cheerio');
+var css = require('css');
 var path = require('path');
 
 
@@ -9,6 +10,32 @@ var path = require('path');
 var sanitise = function(inputHTML,options){
 	var imagesPath = options.imagesPath ? options.imagesPath : 'images';
 	var addTableHeaders = options.addTableHeaders ? options.addTableHeaders : false;
+
+
+
+	// get contents of style tag, remap spans to semantic tags
+	$$ = cheerio.load(inputHTML);
+	var styles = css.parse($$('style').text());
+	var rules = styles.stylesheet.rules;
+	var boldSelector, italicSelector;
+	for (var i = rules.length - 1; i >= 0; i--) {
+		if(rules[i].declarations && rules[i].declarations.length === 1){
+			if(rules[i].declarations[0].property ==='font-weight' && ['bold','400','700'].indexOf(rules[i].declarations[0].value)>-1){
+				boldSelector = rules[i].selectors[0];
+			}
+			if(rules[i].declarations[0].property ==='font-style' && ['italic'].indexOf(rules[i].declarations[0].value)>-1){
+				italicSelector = rules[i].selectors[0];
+			}
+		}
+	};
+	$$(boldSelector).replaceWith(function(){
+	    return $$("<strong />").append($$(this).contents());
+	});
+	$$(italicSelector).replaceWith(function(){
+	    return $$("<em />").append($$(this).contents());
+	});
+	inputHTML = $$.html();
+
 
 	// sanitise the HTML
 	allowedAttributes = sanitizeHTML.defaults.allowedAttributes

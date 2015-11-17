@@ -20,6 +20,7 @@
     "ncp": "^2.0.0",
     "pretty": "^1.0.0",
     "sanitize-html": "^1.6.1",
-    "through2": "^2.0.0"
+    "through2": "^2.0.0",
+    "to-markdown": "^2.0.1"
   }
 }

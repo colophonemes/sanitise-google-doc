@@ -3,6 +3,7 @@ var sanitizeHTML = require('sanitize-html');
 var pretty = require('pretty');
 var cheerio = require('cheerio');
 var css = require('css');
+var toMarkdown = require('to-markdown');
 var path = require('path');
 
 
@@ -10,7 +11,7 @@ var path = require('path');
 var sanitise = function(inputHTML,options){
 	var imagesPath = options.imagesPath ? options.imagesPath : 'images';
 	var addTableHeaders = options.addTableHeaders ? options.addTableHeaders : false;
-
+	var markdown = options.markdown || false;
 
 
 	// get contents of style tag, remap spans to semantic tags
@@ -127,8 +128,11 @@ var sanitise = function(inputHTML,options){
 	clean = $$.html();
 
 	// pretty-print output html
-	clean = pretty(clean);
-	
+	if(false){
+		clean = pretty(clean);
+	} else {
+		clean = toMarkdown(clean)
+	}
 	return clean;
 
 

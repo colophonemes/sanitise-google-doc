@@ -36,21 +36,39 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>Sanitise Google Doc</h2>
+          <h1>Sanitise Google Doc</h1>
         </div>
       </div>
-      <div style="display:none; text-align:center;" id="app-loading">
-        <div class="col-md-12">
-          <em>Application loading</em>
-        </div>
-      </div>
-      <div style="display:none;" id="app-container">
       <div class="row">
-        <div class="col-md-12">
-          <a href="#" class="btn btn-primary" id="openGAPicker">Open Google Doc</a>
+        <div style="display:none; text-align:center;" id="app-loading">
+          <div class="col-md-12">
+            <em>Application loading</em>
+          </div>
         </div>
       </div>
-    
+
+      <div style="display:none;" id="app-container">
+        <div class="row">
+          <div class="col-md-12">
+            <a href="#" class="btn btn-primary" id="openGAPicker">Open Google Doc</a>
+          </div>
+        <hr>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Options:</h4>
+            <form id="options">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="markdown" checked />
+                  Markdown
+                </label>
+                <p class="help-block">Output the contents of the Google Doc as Markdown, instead of HTML</p>
+              </div>
+            </form>
+          </div>
+        </div>
+
       <!--<div class="row">
         <div class="col-md-12">
           <form id="options">
@@ -87,11 +105,12 @@
       </div>
     </div> <!-- /app-container --> 
 
-      <hr>
-
-      <footer>
-        <p>&copy; Colophonemes 2015</p>
-      </footer>
+      <div class="row">
+        <footer class="col-xs-12">
+          <hr>
+          <p>&copy; Colophonemes 2015</p>
+        </footer>
+      </div>
     </div> <!-- /container --> 
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

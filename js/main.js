@@ -120,7 +120,7 @@
 
 $(document).ready(function(){
     // init
-    optionNames = ['imagesPath','addTableHeaders'];
+    optionNames = ['markdown'];
     $.each(optionNames,function(index,optionName){
         if($.cookie(optionName)){
             $('#'+optionName).val($.cookie(optionName));

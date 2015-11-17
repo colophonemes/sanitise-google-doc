@@ -13,7 +13,6 @@ var sanitise = function(inputHTML,options){
 	var addTableHeaders = options.addTableHeaders ? options.addTableHeaders : false;
 	var markdown = options.markdown || false;
 
-
 	// get contents of style tag, remap spans to semantic tags
 	$$ = cheerio.load(inputHTML);
 	var styles = css.parse($$('style').text());
@@ -49,6 +48,8 @@ var sanitise = function(inputHTML,options){
 		allowedAttributes: allowedAttributes,
 		transformTags: {
 			'a': function(tagName,attribs){
+				// remove auto-generated anchors
+				if(attribs.name){return false}
 				// search for google links and remove them
 				var href = attribs.href
 				if(href && href.search("www.google.com/url?")!==-1){
@@ -128,10 +129,30 @@ var sanitise = function(inputHTML,options){
 	clean = $$.html();
 
 	// pretty-print output html
-	if(false){
+	if(!markdown){
 		clean = pretty(clean);
 	} else {
-		clean = toMarkdown(clean)
+		clean = toMarkdown(clean, {converters:[
+			{
+				filter: function(node){
+					if(node.nodeName !== 'SUP') return false;
+					return node.nodeName === 'SUP' && /^\[[\d]+\]$/.test(node.textContent)
+				},
+				replacement: function(content) {
+					return '[^fn-' + content.replace('[','').replace(']','') + ']';
+				}
+			},
+			{
+				filter: function(node){
+					if (node.nodeName !== 'P') return false;
+					return node.nodeName === 'P' && /^\[[\d]+\][\s]*?/.test(node.textContent)
+				},
+				replacement: function(content) {
+					var matches = content.match(/^\[([\d]+)\][\s]*?(.*)/);
+					return '\n[^fn-' + matches[1] + ']: ' + matches[2] + '\n\n';
+				}
+			}
+		]})
 	}
 	return clean;
 

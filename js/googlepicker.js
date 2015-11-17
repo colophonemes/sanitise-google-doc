@@ -49,11 +49,16 @@
      */
     _showPicker: function() {
       var accessToken = gapi.auth.getToken().access_token;
-      var view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS).setMimeTypes("application/vnd.google-apps.document");
+      var view = new google.picker.DocsView()
+                                  .setMimeTypes("application/vnd.google-apps.document")
+                                  .setMode(google.picker.DocsViewMode.LIST)
+                                  .setIncludeFolders(false)
+                                  .setSelectFolderEnabled(false)
+                                  ;
       view.setIncludeFolders(true);
       this.picker = new google.picker.PickerBuilder()
-        .enableFeature(google.picker.Feature.NAV_HIDDEN)
-        .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+        // .enableFeature(google.picker.Feature.NAV_HIDDEN)
+        // .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
         .setAppId(this.clientId)
         .setDeveloperKey(this.apiKey)
         .setOAuthToken(accessToken)

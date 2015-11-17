@@ -131,8 +131,6 @@ $(document).ready(function(){
 
 // click handler to sanitise text
 function processHTML(html){
-    console.log('Processing HTML...');
-
     var options = {};
     $.each(optionNames, function(index,optionName) {
         el = $('#'+optionName);

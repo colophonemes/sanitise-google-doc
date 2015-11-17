@@ -133,7 +133,6 @@ function initPicker() {
     clientId: '468292153625-kkfcqnjc6phj3j4u07n2fdislhdth327',
     buttonEl: document.getElementById('openGAPicker'),
     onSelect: function(file) {
-      console.log(file);
       downloadFile(file,function(filedata){
         if(!filedata){
           alert('Error, could not load document...');
@@ -148,11 +147,9 @@ function initPicker() {
 // from https://developers.google.com/drive/v2/reference/files/get
 function downloadFile(file, callback) {
   if (file.exportLinks["text/html"]) {
-    console.log('Downloading file contents...');
     $('#loading').show();
     $('#output-container').hide();  
     var accessToken = gapi.auth.getToken().access_token;
-    console.log('accessToken',accessToken);
     var xhr = new XMLHttpRequest();
     xhr.open('GET', file.exportLinks["text/html"]);
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);

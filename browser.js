@@ -135,7 +135,15 @@ var sanitise = function(inputHTML,options){
 		clean = toMarkdown(clean, {converters:[
 			{
 				filter: function(node){
-					if(node.nodeName !== 'SUP') return false;
+					if(node.nodeName!=='A') return false;
+					return node.nodeName === 'A' && /^#/.test(node.getAttribute("href"))
+				},
+				replacement: function(content) {
+					return content;
+				}
+			},
+			{
+				filter: function(node){
 					return node.nodeName === 'SUP' && /^\[[\d]+\]$/.test(node.textContent)
 				},
 				replacement: function(content) {
@@ -144,7 +152,6 @@ var sanitise = function(inputHTML,options){
 			},
 			{
 				filter: function(node){
-					if (node.nodeName !== 'P') return false;
 					return node.nodeName === 'P' && /^\[[\d]+\][\s]*?/.test(node.textContent)
 				},
 				replacement: function(content) {
